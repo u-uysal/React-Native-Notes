@@ -1,29 +1,36 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
-  const [state, setstate] = useState("");
+  const [names, setName] = useState([
+    { name: "ufuk", key: 1 },
+    { name: "uysal", key: 2 },
+  ]);
 
   const inputHandler = (val) => {
-    setstate(val);
+    setName(val);
   };
   return (
     <View style={styles.container}>
-      <Text>Name</Text>
-      <TextInput
-        multiline //write multiline code
-        style={styles.inputArea}
-        onChangeText={inputHandler}
-        placeholder="your name"
+      <FlatList
+        numColumns={2}
+        keyExtractor={(item) => item.id}
+        data={names}
+        renderItem={({ item }) => <Text>{item.name}</Text>}
       />
-      <Text>Age</Text>
-      <TextInput
-        keyboardType="numeric" // write only numbers
-        style={styles.inputArea}
-        onChangeText={inputHandler}
-        placeholder="your name"
-      />
-      <Text>{state}</Text>
+
+      {/*   <ScrollView>
+        {names.map((item) => {
+          return <Text>{item.name}</Text>;
+        })}
+      </ScrollView> */}
     </View>
   );
 }
@@ -34,10 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  inputArea: {
-    border: "1px solid red",
-    padding: 10,
-    margin: 10,
   },
 });
