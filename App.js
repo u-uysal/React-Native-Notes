@@ -4,8 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
-  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 
 export default function App() {
@@ -18,20 +18,26 @@ export default function App() {
     setName(val);
   };
   return (
-    <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        data={names}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
-      />
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <View style={styles.container}>
+        <FlatList
+          numColumns={2}
+          keyExtractor={(item) => item.id}
+          data={names}
+          renderItem={({ item }) => <Text>{item.name}</Text>}
+        />
 
-      {/*   <ScrollView>
+        {/*   <ScrollView>
         {names.map((item) => {
           return <Text>{item.name}</Text>;
         })}
       </ScrollView> */}
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
